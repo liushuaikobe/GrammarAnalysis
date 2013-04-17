@@ -1,0 +1,89 @@
+program -> external_declaration program'
+program' -> external_declaration program' | $
+#
+external_declaration -> function_definition
+#
+function_definition -> type_specifier declarator_for_fun compound_statement
+#
+type_specifier -> CHAR | INT | FLOAT | CHAR*
+#
+declarator_for_fun -> IDN ( declarator_for_fun'
+declarator_for_fun' -> ) | parameter_list )
+#
+declarator -> IDN declarator'
+declarator' -> [ CONST_INT ] declarator' | $
+#
+#identifer_list -> IDN identifer_list'
+#identifer_list' -> , IDN identifer_list' | $
+#
+parameter_list -> parameter_declaration parameter_list'
+parameter_list' -> , parameter_declaration parameter_list' | $
+parameter_declaration -> type_specifier IDN
+#
+compound_statement -> { compound_statement'
+compound_statement' -> } | statement_list } | declaration_list statement_list }
+#
+declaration_list -> declaration declaration_list'
+declaration_list' -> declaration declaration_list' | $
+declaration -> type_specifier init_declarator declaration'
+declaration' -> , init_declarator declaration' | $
+init_declarator -> declarator init_declarator'
+init_declarator' -> $ | = initializer
+initializer -> assigment_expression | { const_expression_list }
+#
+statement_list -> statement statement_list'
+statement_list' -> statement statement_list' | $
+#
+statement -> compound_statement | expression_statement | selection_statement | iteration_statement | jump_statement | declaration_list
+#
+expression_statement -> ; | expression ;
+#
+selection_statement -> IF ( expression ) statement selection_statement'
+selection_statement' -> $ | ELSE statement
+#
+iteration_statement -> WHILE ( expression ) statement | FOR ( expression_statement expression_statement expression ) statement
+#
+jump_statement -> CONTINUE ; | BREAK ; | RETURN ; | RETURN expression ;
+#
+expression -> assigment_expression expression'
+expression' -> , assigment_expression expression' | $
+#
+assigment_expression -> IDN assigment_expression'' | const_expression assigment_expression'
+assigment_expression'' -> assigment_expression' | = logical_or_expression
+assigment_expression' -> > logical_or_expression | < logical_or_expression | >= logical_or_expression | <= logical_or_expression | == logical_or_expression | != logical_or_expression | AND_OP logical_or_expression | OR_OP logical_or_expression | + logical_or_expression | - logical_or_expression | / logical_or_expression | * logical_or_expression | % logical_or_expression | $
+logical_or_expression -> logical_and_expression logical_or_expression'
+logical_or_expression' -> OR_OP logical_and_expression logical_or_expression' | $
+#
+logical_and_expression -> equality_expression logical_and_expression'
+logical_and_expression' -> AND_OP equality_expression logical_and_expression' | $
+#
+equality_expression -> relational_expression equality_expression'
+equality_expression' -> == relational_expression equality_expression' | $
+equality_expression' -> != relational_expression equality_expression' | $
+#
+relational_expression -> shift_expression relational_expression'
+relational_expression' -> > shift_expression relational_expression' | $
+relational_expression' -> < shift_expression relational_expression' | $
+relational_expression' -> >= shift_expression relational_expression' | $
+relational_expression' -> <= shift_expression relational_expression' | $
+#
+shift_expression -> multiplicative_expression shift_expression'
+shift_expression' -> + multiplicative_expression shift_expression' | $
+shift_expression' -> - multiplicative_expression shift_expression' | $
+#
+multiplicative_expression -> cast_expression multiplicative_expression'
+multiplicative_expression' -> % cast_expression multiplicative_expression' | $
+multiplicative_expression' -> / cast_expression multiplicative_expression' | $
+multiplicative_expression' -> * cast_expression multiplicative_expression' | $
+#
+cast_expression -> postfix_expression
+#
+postfix_expression -> primary_expression postfix_expression'
+postfix_expression' -> [ expression ] postfix_expression' | $
+postfix_expression' -> ( const_expression_list )
+#
+primary_expression -> IDN | const_expression | ( expression )
+const_expression -> CONST_INT | CONST_FLOAT | CHAR* | CHAR
+#
+const_expression_list -> const_expression const_expression_list'
+const_expression_list' -> , const_expression const_expression_list' | $

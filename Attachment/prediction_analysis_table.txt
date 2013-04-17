@@ -1,0 +1,106 @@
+expression:
+| CHAR => [assigment_expression, expression'] | CHAR* => [assigment_expression, expression'] | CONST_INT => [assigment_expression, expression'] | CONST_FLOAT => [assigment_expression, expression'] | IDN => [assigment_expression, expression'] | 
+relational_expression':
+| OR_OP => [$] | WHILE => [$] | >= => [>=, shift_expression, relational_expression'] | ELSE => [$] | CHAR => [$] | FOR => [$] | FLOAT => [$] | INT => [$] | == => [$] | ] => [$] | CHAR* => [$] | BREAK => [$] | IF => [$] | IDN => [$] | AND_OP => [$] | CONTINUE => [$] | CONST_INT => [$] | ) => [$] | , => [$] | RETURN => [$] | <= => [<=, shift_expression, relational_expression'] | != => [$] | ; => [$] | } => [$] | { => [$] | > => [>, shift_expression, relational_expression'] | < => [<, shift_expression, relational_expression'] | CONST_FLOAT => [$] | 
+declarator:
+| IDN => [IDN, declarator'] | 
+declarator_for_fun':
+| CHAR => [parameter_list, )] | FLOAT => [parameter_list, )] | INT => [parameter_list, )] | CHAR* => [parameter_list, )] | ) => [)] | 
+postfix_expression':
+| OR_OP => [$] | WHILE => [$] | >= => [$] | ELSE => [$] | CHAR => [$] | FOR => [$] | INT => [$] | FLOAT => [$] | == => [$] | ] => [$] | CHAR* => [$] | BREAK => [$] | [ => [[, expression, ], postfix_expression'] | IF => [$] | IDN => [$] | AND_OP => [$] | % => [$] | * => [$] | CONTINUE => [$] | + => [$] | ( => [(, const_expression_list, )] | ) => [$] | CONST_INT => [$] | / => [$] | , => [$] | RETURN => [$] | - => [$] | <= => [$] | != => [$] | ; => [$] | } => [$] | { => [$] | > => [$] | CONST_FLOAT => [$] | < => [$] | 
+multiplicative_expression:
+| CHAR => [cast_expression, multiplicative_expression'] | CHAR* => [cast_expression, multiplicative_expression'] | ( => [cast_expression, multiplicative_expression'] | CONST_INT => [cast_expression, multiplicative_expression'] | CONST_FLOAT => [cast_expression, multiplicative_expression'] | IDN => [cast_expression, multiplicative_expression'] | 
+compound_statement:
+| { => [{, compound_statement'] | 
+jump_statement:
+| CONTINUE => [CONTINUE, ;] | BREAK => [BREAK, ;] | RETURN => [RETURN, expression, ;] | 
+const_expression_list:
+| CHAR => [const_expression, const_expression_list'] | CHAR* => [const_expression, const_expression_list'] | CONST_INT => [const_expression, const_expression_list'] | CONST_FLOAT => [const_expression, const_expression_list'] | 
+cast_expression:
+| CHAR => [postfix_expression] | CHAR* => [postfix_expression] | ( => [postfix_expression] | CONST_INT => [postfix_expression] | CONST_FLOAT => [postfix_expression] | IDN => [postfix_expression] | 
+equality_expression:
+| CHAR => [relational_expression, equality_expression'] | CHAR* => [relational_expression, equality_expression'] | ( => [relational_expression, equality_expression'] | CONST_INT => [relational_expression, equality_expression'] | CONST_FLOAT => [relational_expression, equality_expression'] | IDN => [relational_expression, equality_expression'] | 
+parameter_list':
+| ) => [$] | , => [,, parameter_declaration, parameter_list'] | 
+assigment_expression'':
+| OR_OP => [assigment_expression'] | WHILE => [assigment_expression'] | >= => [assigment_expression'] | ELSE => [assigment_expression'] | CHAR => [assigment_expression'] | FOR => [assigment_expression'] | INT => [assigment_expression'] | FLOAT => [assigment_expression'] | == => [assigment_expression'] | ] => [assigment_expression'] | CHAR* => [assigment_expression'] | BREAK => [assigment_expression'] | IF => [assigment_expression'] | IDN => [assigment_expression'] | AND_OP => [assigment_expression'] | % => [assigment_expression'] | * => [assigment_expression'] | CONTINUE => [assigment_expression'] | + => [assigment_expression'] | ) => [assigment_expression'] | CONST_INT => [assigment_expression'] | / => [assigment_expression'] | , => [assigment_expression'] | RETURN => [assigment_expression'] | - => [assigment_expression'] | <= => [assigment_expression'] | != => [assigment_expression'] | ; => [assigment_expression'] | } => [assigment_expression'] | { => [assigment_expression'] | > => [assigment_expression'] | = => [=, logical_or_expression] | CONST_FLOAT => [assigment_expression'] | < => [assigment_expression'] | 
+function_definition:
+| CHAR => [type_specifier, declarator_for_fun, compound_statement] | FLOAT => [type_specifier, declarator_for_fun, compound_statement] | INT => [type_specifier, declarator_for_fun, compound_statement] | CHAR* => [type_specifier, declarator_for_fun, compound_statement] | 
+declaration:
+| CHAR => [type_specifier, init_declarator, declaration'] | FLOAT => [type_specifier, init_declarator, declaration'] | INT => [type_specifier, init_declarator, declaration'] | CHAR* => [type_specifier, init_declarator, declaration'] | 
+declarator':
+| WHILE => [$] | CONTINUE => [$] | CONST_INT => [$] | ELSE => [$] | , => [$] | RETURN => [$] | CHAR => [$] | FOR => [$] | INT => [$] | FLOAT => [$] | ; => [$] | } => [$] | CHAR* => [$] | BREAK => [$] | { => [$] | [ => [[, CONST_INT, ], declarator'] | = => [$] | IF => [$] | CONST_FLOAT => [$] | IDN => [$] | 
+assigment_expression:
+| CHAR => [const_expression, assigment_expression'] | CHAR* => [const_expression, assigment_expression'] | CONST_INT => [const_expression, assigment_expression'] | CONST_FLOAT => [const_expression, assigment_expression'] | IDN => [IDN, assigment_expression''] | 
+multiplicative_expression':
+| OR_OP => [$] | WHILE => [$] | >= => [$] | ELSE => [$] | CHAR => [$] | FOR => [$] | INT => [$] | FLOAT => [$] | == => [$] | ] => [$] | CHAR* => [$] | BREAK => [$] | IF => [$] | IDN => [$] | AND_OP => [$] | % => [%, cast_expression, multiplicative_expression'] | * => [*, cast_expression, multiplicative_expression'] | CONTINUE => [$] | + => [$] | ) => [$] | CONST_INT => [$] | / => [/, cast_expression, multiplicative_expression'] | , => [$] | - => [$] | RETURN => [$] | <= => [$] | != => [$] | ; => [$] | } => [$] | { => [$] | > => [$] | CONST_FLOAT => [$] | < => [$] | 
+init_declarator:
+| IDN => [declarator, init_declarator'] | 
+equality_expression':
+| AND_OP => [$] | OR_OP => [$] | WHILE => [$] | CONTINUE => [$] | ) => [$] | CONST_INT => [$] | ELSE => [$] | , => [$] | RETURN => [$] | CHAR => [$] | FOR => [$] | INT => [$] | FLOAT => [$] | == => [==, relational_expression, equality_expression'] | != => [!=, relational_expression, equality_expression'] | ] => [$] | ; => [$] | } => [$] | CHAR* => [$] | BREAK => [$] | { => [$] | IF => [$] | CONST_FLOAT => [$] | IDN => [$] | 
+logical_or_expression':
+| OR_OP => [OR_OP, logical_and_expression, logical_or_expression'] | WHILE => [$] | CONTINUE => [$] | ) => [$] | CONST_INT => [$] | ELSE => [$] | , => [$] | RETURN => [$] | CHAR => [$] | FOR => [$] | INT => [$] | FLOAT => [$] | ] => [$] | ; => [$] | } => [$] | CHAR* => [$] | BREAK => [$] | { => [$] | IF => [$] | CONST_FLOAT => [$] | IDN => [$] | 
+statement:
+| WHILE => [iteration_statement] | CONTINUE => [jump_statement] | CONST_INT => [expression_statement] | RETURN => [jump_statement] | CHAR => [declaration_list] | FOR => [iteration_statement] | FLOAT => [declaration_list] | INT => [declaration_list] | ; => [expression_statement] | CHAR* => [declaration_list] | BREAK => [jump_statement] | { => [compound_statement] | IF => [selection_statement] | IDN => [expression_statement] | CONST_FLOAT => [expression_statement] | 
+declarator_for_fun:
+| IDN => [IDN, (, declarator_for_fun'] | 
+logical_and_expression:
+| CHAR => [equality_expression, logical_and_expression'] | CHAR* => [equality_expression, logical_and_expression'] | ( => [equality_expression, logical_and_expression'] | CONST_INT => [equality_expression, logical_and_expression'] | CONST_FLOAT => [equality_expression, logical_and_expression'] | IDN => [equality_expression, logical_and_expression'] | 
+declaration':
+| WHILE => [$] | CONTINUE => [$] | CONST_INT => [$] | ELSE => [$] | , => [,, init_declarator, declaration'] | RETURN => [$] | CHAR => [$] | FOR => [$] | INT => [$] | FLOAT => [$] | ; => [$] | } => [$] | CHAR* => [$] | BREAK => [$] | { => [$] | IF => [$] | CONST_FLOAT => [$] | IDN => [$] | 
+program:
+| CHAR => [external_declaration, program'] | FLOAT => [external_declaration, program'] | INT => [external_declaration, program'] | CHAR* => [external_declaration, program'] | 
+shift_expression:
+| CHAR => [multiplicative_expression, shift_expression'] | CHAR* => [multiplicative_expression, shift_expression'] | ( => [multiplicative_expression, shift_expression'] | CONST_INT => [multiplicative_expression, shift_expression'] | CONST_FLOAT => [multiplicative_expression, shift_expression'] | IDN => [multiplicative_expression, shift_expression'] | 
+iteration_statement:
+| FOR => [FOR, (, expression_statement, expression_statement, expression, ), statement] | WHILE => [WHILE, (, expression, ), statement] | 
+logical_or_expression:
+| CHAR => [logical_and_expression, logical_or_expression'] | CHAR* => [logical_and_expression, logical_or_expression'] | ( => [logical_and_expression, logical_or_expression'] | CONST_INT => [logical_and_expression, logical_or_expression'] | CONST_FLOAT => [logical_and_expression, logical_or_expression'] | IDN => [logical_and_expression, logical_or_expression'] | 
+shift_expression':
+| OR_OP => [$] | WHILE => [$] | >= => [$] | ELSE => [$] | CHAR => [$] | FOR => [$] | FLOAT => [$] | INT => [$] | == => [$] | ] => [$] | CHAR* => [$] | BREAK => [$] | IF => [$] | IDN => [$] | AND_OP => [$] | CONTINUE => [$] | + => [+, multiplicative_expression, shift_expression'] | ) => [$] | CONST_INT => [$] | , => [$] | - => [-, multiplicative_expression, shift_expression'] | RETURN => [$] | <= => [$] | != => [$] | ; => [$] | } => [$] | { => [$] | > => [$] | < => [$] | CONST_FLOAT => [$] | 
+init_declarator':
+| WHILE => [$] | CONTINUE => [$] | CONST_INT => [$] | ELSE => [$] | , => [$] | RETURN => [$] | CHAR => [$] | FOR => [$] | INT => [$] | FLOAT => [$] | ; => [$] | } => [$] | CHAR* => [$] | BREAK => [$] | { => [$] | = => [=, initializer] | IF => [$] | CONST_FLOAT => [$] | IDN => [$] | 
+parameter_list:
+| CHAR => [parameter_declaration, parameter_list'] | FLOAT => [parameter_declaration, parameter_list'] | INT => [parameter_declaration, parameter_list'] | CHAR* => [parameter_declaration, parameter_list'] | 
+relational_expression:
+| CHAR => [shift_expression, relational_expression'] | CHAR* => [shift_expression, relational_expression'] | ( => [shift_expression, relational_expression'] | CONST_INT => [shift_expression, relational_expression'] | CONST_FLOAT => [shift_expression, relational_expression'] | IDN => [shift_expression, relational_expression'] | 
+parameter_declaration:
+| CHAR => [type_specifier, IDN] | FLOAT => [type_specifier, IDN] | INT => [type_specifier, IDN] | CHAR* => [type_specifier, IDN] | 
+postfix_expression:
+| CHAR => [primary_expression, postfix_expression'] | CHAR* => [primary_expression, postfix_expression'] | ( => [primary_expression, postfix_expression'] | CONST_INT => [primary_expression, postfix_expression'] | CONST_FLOAT => [primary_expression, postfix_expression'] | IDN => [primary_expression, postfix_expression'] | 
+const_expression_list':
+| } => [$] | ) => [$] | , => [,, const_expression, const_expression_list'] | 
+declaration_list':
+| WHILE => [$] | CONTINUE => [$] | CONST_INT => [$] | ELSE => [$] | RETURN => [$] | CHAR => [$] | FOR => [$] | INT => [$] | FLOAT => [$] | ; => [$] | } => [$] | CHAR* => [$] | BREAK => [$] | { => [$] | IF => [$] | CONST_FLOAT => [$] | IDN => [$] | 
+statement_list:
+| WHILE => [statement, statement_list'] | CONTINUE => [statement, statement_list'] | CONST_INT => [statement, statement_list'] | RETURN => [statement, statement_list'] | CHAR => [statement, statement_list'] | FOR => [statement, statement_list'] | INT => [statement, statement_list'] | FLOAT => [statement, statement_list'] | ; => [statement, statement_list'] | CHAR* => [statement, statement_list'] | BREAK => [statement, statement_list'] | { => [statement, statement_list'] | IF => [statement, statement_list'] | CONST_FLOAT => [statement, statement_list'] | IDN => [statement, statement_list'] | 
+expression_statement:
+| CHAR => [expression, ;] | ; => [;] | CHAR* => [expression, ;] | CONST_INT => [expression, ;] | CONST_FLOAT => [expression, ;] | IDN => [expression, ;] | 
+selection_statement:
+| IF => [IF, (, expression, ), statement, selection_statement'] | 
+external_declaration:
+| CHAR => [function_definition] | FLOAT => [function_definition] | INT => [function_definition] | CHAR* => [function_definition] | 
+program':
+| CHAR => [external_declaration, program'] | # => [$] | FLOAT => [external_declaration, program'] | INT => [external_declaration, program'] | CHAR* => [external_declaration, program'] | 
+assigment_expression':
+| OR_OP => [OR_OP, logical_or_expression] | WHILE => [$] | >= => [>=, logical_or_expression] | ELSE => [$] | CHAR => [$] | FOR => [$] | INT => [$] | FLOAT => [$] | == => [==, logical_or_expression] | ] => [$] | CHAR* => [$] | BREAK => [$] | IF => [$] | IDN => [$] | AND_OP => [AND_OP, logical_or_expression] | % => [%, logical_or_expression] | * => [*, logical_or_expression] | CONTINUE => [$] | + => [+, logical_or_expression] | ) => [$] | CONST_INT => [$] | / => [/, logical_or_expression] | , => [$] | RETURN => [$] | - => [-, logical_or_expression] | <= => [<=, logical_or_expression] | != => [!=, logical_or_expression] | ; => [$] | } => [$] | { => [$] | > => [>, logical_or_expression] | CONST_FLOAT => [$] | < => [<, logical_or_expression] | 
+const_expression:
+| CHAR => [CHAR] | CHAR* => [CHAR*] | CONST_INT => [CONST_INT] | CONST_FLOAT => [CONST_FLOAT] | 
+compound_statement':
+| WHILE => [statement_list, }] | CONTINUE => [statement_list, }] | CONST_INT => [statement_list, }] | RETURN => [statement_list, }] | CHAR => [declaration_list, statement_list, }] | FOR => [statement_list, }] | INT => [declaration_list, statement_list, }] | FLOAT => [declaration_list, statement_list, }] | ; => [statement_list, }] | CHAR* => [declaration_list, statement_list, }] | } => [}] | BREAK => [statement_list, }] | { => [statement_list, }] | IF => [statement_list, }] | CONST_FLOAT => [statement_list, }] | IDN => [statement_list, }] | 
+logical_and_expression':
+| AND_OP => [AND_OP, equality_expression, logical_and_expression'] | OR_OP => [$] | WHILE => [$] | CONTINUE => [$] | ) => [$] | CONST_INT => [$] | ELSE => [$] | , => [$] | RETURN => [$] | CHAR => [$] | FOR => [$] | INT => [$] | FLOAT => [$] | ] => [$] | ; => [$] | } => [$] | CHAR* => [$] | BREAK => [$] | { => [$] | IF => [$] | CONST_FLOAT => [$] | IDN => [$] | 
+statement_list':
+| WHILE => [statement, statement_list'] | CONTINUE => [statement, statement_list'] | CONST_INT => [statement, statement_list'] | RETURN => [statement, statement_list'] | CHAR => [statement, statement_list'] | FOR => [statement, statement_list'] | INT => [statement, statement_list'] | FLOAT => [statement, statement_list'] | ; => [statement, statement_list'] | } => [$] | CHAR* => [statement, statement_list'] | BREAK => [statement, statement_list'] | { => [statement, statement_list'] | IF => [statement, statement_list'] | CONST_FLOAT => [statement, statement_list'] | IDN => [statement, statement_list'] | 
+declaration_list:
+| CHAR => [declaration, declaration_list'] | FLOAT => [declaration, declaration_list'] | INT => [declaration, declaration_list'] | CHAR* => [declaration, declaration_list'] | 
+primary_expression:
+| CHAR => [const_expression] | ( => [(, expression, )] | CHAR* => [const_expression] | CONST_INT => [const_expression] | CONST_FLOAT => [const_expression] | IDN => [IDN] | 
+selection_statement':
+| WHILE => [$] | CONTINUE => [$] | CONST_INT => [$] | ELSE => [ELSE, statement] | RETURN => [$] | CHAR => [$] | FOR => [$] | INT => [$] | FLOAT => [$] | ; => [$] | } => [$] | CHAR* => [$] | BREAK => [$] | { => [$] | IF => [$] | CONST_FLOAT => [$] | IDN => [$] | 
+type_specifier:
+| CHAR => [CHAR] | FLOAT => [FLOAT] | INT => [INT] | CHAR* => [CHAR*] | 
+expression':
+| ] => [$] | ; => [$] | ) => [$] | , => [,, assigment_expression, expression'] | 
+initializer:
+| CHAR => [assigment_expression] | CHAR* => [assigment_expression] | CONST_INT => [assigment_expression] | { => [{, const_expression_list, }] | CONST_FLOAT => [assigment_expression] | IDN => [assigment_expression] | 
